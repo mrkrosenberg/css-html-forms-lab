@@ -2,7 +2,11 @@
 <html>
 <head>
 	<title>CSS HTML Forms Lab</title>
+
 	<link rel="stylesheet" href="style.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Proza+Libre" rel="stylesheet">
+
 </head>
 <body>
 	<section id="main">
@@ -65,15 +69,15 @@
 						<label for="checkboxes">Sentiment:</label>
 						<div class="checkboxes">
 							<div class="check">
-							  <input id="check1" type="checkbox" name="adjective-2" value="powerful"> 
+							  <input id="check1" class="checkbox" type="checkbox" name="adjective-2" value="powerful"> 
 							  <label for="check1">powerful</label>
 							</div>
 							<div class="check">
-								<input id="check2" type="checkbox" name="adjective-2" value="honed">
+								<input id="check2" class="checkbox" type="checkbox" name="adjective-2" value="honed">
 								<label for="check2">honed</label> 
 							</div>
 							<div class="check">
-								<input id="check3" type="checkbox" name="adjective-2" value="dedicated"> 
+								<input id="check3" class="checkbox" type="checkbox" name="adjective-2" value="dedicated"> 
 								<label for="check3">dedicated</label>
 							</div>
 				    	</div>
@@ -84,7 +88,7 @@
 				    	<input id="noun-2" name="noun-2">
 					</div>
 					<div class="row formGroup">
-				    	<input type="submit">
+				    	<input type="submit" class="submitButton">
 				    </div>
 				    
 			    </div>
@@ -111,25 +115,43 @@
 		$("form").on("submit", function(event){
 
 		    // Stop the form from submitting
-
+		    event.preventDefault();
 	    	// Run the 'makeResults' function seen above
+	    	makeResults();
 
-	    	/*
+	    	var NAME = $('#name').val();
+	    	console.log(NAME);
+	    	
+	    	var VERB1 = $('#verb-1').val();
+	    	console.log(VERB1);
+
+	    	var MISSION = $('#mission').val();
+	    	console.log(MISSION);	
+
+	    	var SENTIMENT = $('input[type=radio][name=sentiment]:checked').val();
+	    	console.log(SENTIMENT);
+
+	    	var ADJECTIVE = $('input[type=checkbox][name=adjective-2]:checked').map(function() {
+	    		return this.value;}).get().join(", ");
+	    	console.log(ADJECTIVE);
+
+	    	var NOUN = $('#noun-1').val();
+	    	console.log(NOUN);
+
+	    	var NOUN2 = $('#noun-2').val();
+	    	console.log(NOUN2);
 			
-				For each value entered into a form input, add the input to the corresponding sentence, then append the text into the results section:
+				// For each value entered into a form input, add the input to the corresponding sentence, then append the text into the results section:
 
-				"Once upon a time there was a Developer named NAME."
+				var story = "Once upon a time there was a Developer named " + NAME + ". " + NAME + " came to General Asssembly to " + VERB1 + " the great mountain of programming knowledge. "  + MISSION + ", " + NAME + " shouted. Through " + SENTIMENT + ", " + NAME + " was able to overcome all obstacles with the power of their " + NOUN + ". In the end, their success can be contributed entirely to their " + ADJECTIVE +  " " + NOUN2 + ".";
 
-				"NAME came to General Asssembly to VERB1 the great mountain of programming knowledge."
+				console.log(story);
+				
+				$('<div class="storyMain"><p class="storyContent">' + story + '</p></div>').appendTo('.results');
+				
 
-				""MISSION", NAME shouted."
 	
-				"Though SENTIMENT, NAME was able to overcome all obstacles with the power of their NOUN."
-
-				"In the end, their success can be contributed entirely to their " + ADJECTIVE2[list each one checked, comma-separated] + NOUN2."
-
-	    	*/ 
-		});
+	});
 	</script>
 
 </body>
